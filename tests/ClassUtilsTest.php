@@ -43,20 +43,20 @@ final class ClassUtilsTest extends PHPUnit_Framework_TestCase
 
     public function getCanonicalNameProvider()
     {
-        return [
-            [new self(), 'php-ddd__utils__class-utils-test'],
-            [new stdClass(), 'std-class'],
-            ['MyNamespace\\Sub\\FooBar', 'my-namespace__sub__foo-bar'],
-        ];
+        return array(
+            array(new self(), 'php-ddd__utils__class-utils-test'),
+            array(new stdClass(), 'std-class'),
+            array('MyNamespace\\Sub\\FooBar', 'my-namespace__sub__foo-bar'),
+        );
     }
 
     public function getCanonicalNameProviderException()
     {
-        return [
-            [5, 'integer'],
-            [5.55, 'double'],
-            [[], 'array'],
-            [null, 'NULL'],
-        ];
+        return array(
+            array(5, 'integer'),
+            array(5.55, 'double'),
+            array(array(), 'array'),
+            array(null, 'NULL'),
+        );
     }
 }

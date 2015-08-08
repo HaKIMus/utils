@@ -57,25 +57,28 @@ final class StringUtilsTest extends PHPUnit_Framework_TestCase
 
     public function toSnakeCaseProvider()
     {
-        return [
-            ['ClassUtils', 'class_utils'],
-        ];
+        return array(
+            array('ClassUtils', 'class_utils'),
+        );
     }
 
     public function toSnakeCaseWithSeparatorProvider()
     {
-        return [
-            ['ClassUtils', 'class_utils', '_'],
-        ];
+        return array(
+            array('ClassUtils', 'class_utils', '_'),
+        );
     }
 
+    /**
+     * @return array
+     */
     public function toSnakeCaseExceptionProvider()
     {
-        return [
-            [5],
-            [5.55],
-            [[]],
-            [new stdClass()],
-        ];
+        return array(
+            array(5),
+            array(5.55),
+            array(array()),
+            array(new stdClass()),
+        );
     }
 }

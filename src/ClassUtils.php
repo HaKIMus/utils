@@ -21,7 +21,7 @@ final class ClassUtils
 
         self::assertString($class);
         $namespaces = explode('\\', $class);
-        $canonical  = [];
+        $canonical  = array();
         foreach ($namespaces as $part) {
             $canonical[] = StringUtils::toSnakeCase($part, '-');
         }
