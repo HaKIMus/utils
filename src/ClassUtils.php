@@ -19,6 +19,23 @@ final class ClassUtils
             $class = get_class($class);
         }
 
+        self::assertString($class);
+        $namespaces = explode('\\', $class);
+        $canonical  = [];
+        foreach ($namespaces as $part) {
+            $canonical[] = StringUtils::toSnakeCase($part, '-');
+        }
+
+        return implode('__', $canonical);
+    }
+
+    /**
+     * @param string $class
+     *
+     * @throws Exception
+     */
+    private static function assertString($class)
+    {
         if (!is_string($class)) {
             throw new Exception(
                 sprintf(
@@ -27,13 +44,5 @@ final class ClassUtils
                 )
             );
         }
-
-        $namespaces = explode('\\', $class);
-        $canonical  = [];
-        foreach ($namespaces as $part) {
-            $canonical[] = StringUtils::toSnakeCase($part, '-');
-        }
-
-        return implode('__', $canonical);
     }
 }
