@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpDDDTests\Utils\Tests;
+namespace PhpDDD\Utils\Tests;
 
 use Exception;
 use PhpDDD\Utils\StringUtils;

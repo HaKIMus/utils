@@ -9,7 +9,6 @@ return Symfony\CS\Config\Config::create()
             '-phpdoc_no_empty_return',
             'align_double_arrow',
             'align_equals',
-            'long_array_syntax',
             'multiline_spaces_before_semicolon',
             'ordered_use',
             'strict',

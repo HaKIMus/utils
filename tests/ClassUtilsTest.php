@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpDDDTests\Utils\Tests;
+namespace PhpDDD\Utils\Tests;
 
 use Exception;
 use PhpDDD\Utils\ClassUtils;
@@ -58,7 +58,7 @@ final class ClassUtilsTest extends PHPUnit_Framework_TestCase
     public function getCanonicalNameProvider()
     {
         return array(
-            array(new self(), 'php_ddd_tests.utils.class_utils_test'),
+            array(new self(), 'php_ddd.utils.tests.class_utils_test'),
             array(new stdClass(), 'std_class'),
             array('MyNamespace\\Sub\\FooBar', 'my_namespace.sub.foo_bar'),
             array(null, null),
