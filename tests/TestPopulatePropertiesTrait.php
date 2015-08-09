@@ -1,6 +1,8 @@
 <?php
 
-namespace PhpDDD\Utils;
+namespace PhpDDD\Utils\Tests;
+
+use PhpDDD\Utils\PopulatePropertiesTrait;
 
 final class TestPopulatePropertiesTrait
 {
@@ -15,7 +17,7 @@ final class TestPopulatePropertiesTrait
     /**
      * @param array $data
      */
-    public function __construct(array $data = array())
+    public function __construct(array $data = [])
     {
         $this->populate($data);
     }
