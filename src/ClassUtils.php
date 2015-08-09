@@ -7,26 +7,46 @@ use Exception;
 final class ClassUtils
 {
     /**
-     * @param mixed $class
+     * @param string|object|null $class
      *
-     * @return string
+     * @return string|null
      *
      * @throws Exception
      */
     public static function getCanonicalName($class)
     {
-        if (is_object($class)) {
-            $class = get_class($class);
+        if (null === $class) {
+            return;
         }
 
-        self::assertString($class);
-        $namespaces = explode('\\', $class);
-        $canonical  = array();
-        foreach ($namespaces as $part) {
-            $canonical[] = StringUtils::toSnakeCase($part, '-');
+        $className = self::getClassFullQualifiedName($class);
+
+        if (false !== strpos($className, '.')) {
+            return $className;
         }
 
-        return implode('__', $canonical);
+        return implode(
+            '.',
+            array_map(
+                function ($namespace) {
+                    return StringUtils::toSnakeCase($namespace, '_');
+                },
+                explode('\\', $className)
+            )
+        );
+    }
+
+    /**
+     * @param object|string $class
+     *
+     * @return string
+     */
+    public static function getShortName($class)
+    {
+        $className = self::getClassFullQualifiedName($class);
+        $parts     = explode('\\', $className);
+
+        return end($parts);
     }
 
     /**
@@ -44,5 +64,23 @@ final class ClassUtils
                 )
             );
         }
+    }
+
+    /**
+     * @param object|string $class
+     *
+     * @return string
+     *
+     * @throws Exception
+     */
+    private static function getClassFullQualifiedName($class)
+    {
+        if (is_object($class)) {
+            $class = get_class($class);
+        }
+
+        self::assertString($class);
+
+        return $class;
     }
 }

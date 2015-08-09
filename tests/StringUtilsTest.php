@@ -1,8 +1,9 @@
 <?php
 
-namespace PhpDDD\Utils;
+namespace PhpDDDTests\Utils;
 
 use Exception;
+use PhpDDD\Utils\StringUtils;
 use PHPUnit_Framework_TestCase;
 use stdClass;
 

@@ -1,8 +1,9 @@
 <?php
 
-namespace PhpDDD\Utils;
+namespace PhpDDDTests\Utils;
 
 use Exception;
+use PhpDDD\Utils\ClassUtils;
 use PHPUnit_Framework_TestCase;
 use stdClass;
 
@@ -19,7 +20,9 @@ final class ClassUtilsTest extends PHPUnit_Framework_TestCase
      */
     public function testGetCanonicalName($class, $expected)
     {
+        $this->assertTrue(true);
         $this->assertEquals($expected, ClassUtils::getCanonicalName($class));
+        $this->assertEquals($expected, ClassUtils::getCanonicalName(ClassUtils::getCanonicalName($class)));
     }
 
     /**
@@ -41,12 +44,24 @@ final class ClassUtilsTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * @dataProvider getShortNameProvider
+     *
+     * @param mixed  $class
+     * @param string $expectedShortName
+     */
+    public function testGetShortName($class, $expectedShortName)
+    {
+        $this->assertEquals($expectedShortName, ClassUtils::getShortName($class));
+    }
+
     public function getCanonicalNameProvider()
     {
         return array(
-            array(new self(), 'php-ddd__utils__class-utils-test'),
-            array(new stdClass(), 'std-class'),
-            array('MyNamespace\\Sub\\FooBar', 'my-namespace__sub__foo-bar'),
+            array(new self(), 'php_ddd_tests.utils.class_utils_test'),
+            array(new stdClass(), 'std_class'),
+            array('MyNamespace\\Sub\\FooBar', 'my_namespace.sub.foo_bar'),
+            array(null, null),
         );
     }
 
@@ -56,7 +71,16 @@ final class ClassUtilsTest extends PHPUnit_Framework_TestCase
             array(5, 'integer'),
             array(5.55, 'double'),
             array(array(), 'array'),
-            array(null, 'NULL'),
+        );
+    }
+
+    public function getShortNameProvider()
+    {
+        return array(
+            array(new self(), 'ClassUtilsTest'),
+            array(new stdClass(), 'stdClass'),
+            array('stdClass', 'stdClass'),
+            array('MyNamespace\\Sub\\FooBar', 'FooBar'),
         );
     }
 }

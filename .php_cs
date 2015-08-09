@@ -5,6 +5,8 @@ return Symfony\CS\Config\Config::create()
     // and extra fixers:
     ->fixers(
         [
+            '-psr0',
+            '-phpdoc_no_empty_return',
             'align_double_arrow',
             'align_equals',
             'long_array_syntax',
