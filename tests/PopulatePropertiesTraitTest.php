@@ -28,7 +28,20 @@ final class PopulatePropertiesTraitTest extends PHPUnit_Framework_TestCase
      */
     public function testPopulateUnknownProperty()
     {
-        new TestPopulatePropertiesTrait(array('unknown' => 'test'));
+        new TestPopulatePropertiesTrait(['unknown' => 'test']);
+    }
+
+    /**
+     * @dataProvider dataProvider
+     *
+     * @param array $data
+     */
+    public function testSerialize($data)
+    {
+        $class = new TestPopulatePropertiesTrait($data);
+        $result = new TestPopulatePropertiesTrait();
+        $result->unserialize($class->serialize());
+        $this->assertEquals($class, $result);
     }
 
     /**
@@ -36,15 +49,15 @@ final class PopulatePropertiesTraitTest extends PHPUnit_Framework_TestCase
      */
     public function dataProvider()
     {
-        return array(
-            array(array()),
-            array(array('testPublic'    => 5)),
-            array(array('testProtected' => 6)),
-            array(array('testPrivate'   => 7)),
-            array(array('testPublic'    => 5, 'testProtected' => 6)),
-            array(array('testPublic'    => 5, 'testPrivate' => 7)),
-            array(array('testProtected' => 6, 'testPrivate' => 7)),
-            array(array('testPublic'    => 5, 'testProtected' => 6, 'testPrivate' => 7)),
-        );
+        return [
+            [[]],
+            [['testPublic' => 5]],
+            [['testProtected' => 6]],
+            [['testPrivate' => 7]],
+            [['testPublic' => 5, 'testProtected' => 6]],
+            [['testPublic' => 5, 'testPrivate' => 7]],
+            [['testProtected' => 6, 'testPrivate' => 7]],
+            [['testPublic' => 5, 'testProtected' => 6, 'testPrivate' => 7]],
+        ];
     }
 }

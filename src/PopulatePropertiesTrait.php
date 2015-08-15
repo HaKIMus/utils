@@ -11,7 +11,7 @@ trait PopulatePropertiesTrait
      *
      * @param array $data
      */
-    protected function populate(array $data = array())
+    protected function populate(array $data = [])
     {
         foreach ($data as $propertyName => $value) {
             if (!property_exists($this, $propertyName)) {
@@ -24,6 +24,33 @@ trait PopulatePropertiesTrait
                 );
             }
             $this->$propertyName = $value;
+        }
+    }
+
+    /**
+     * @return string the string representation of the object or null
+     */
+    public function serialize()
+    {
+        $data       = [];
+        $properties = get_object_vars($this);
+        foreach ($properties as $propertyName => $value) {
+            $data[$propertyName] = serialize($value);
+        }
+
+        return serialize($data);
+    }
+
+    /**
+     * @param string $serialized The string representation of the object.
+     *
+     * @return void
+     */
+    public function unserialize($serialized)
+    {
+        $data = unserialize($serialized);
+        foreach ($data as $propertyName => $value) {
+            $this->$propertyName = unserialize($value);
         }
     }
 }
